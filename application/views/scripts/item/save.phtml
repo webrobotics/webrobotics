@@ -1,0 +1,14 @@
+<?php
+    if ($this->itemId) {
+        echo '<div class="alert alert-success" style="width:450px">
+                <button class="close" data-dismiss="alert">×</button>
+                Successfully saved, item id -> <strong>#'.$this->itemId.'</strong>
+              </div>';
+    }
+    elseif ($this->errorMessage) {
+        echo
+            '<div class="alert alert-error" style="width:500px">
+                <button class="close" data-dismiss="alert">×</button>
+                Error while saving. Reason: <strong>'.$this->errorMessage.'</strong>
+            </div>';
+    }

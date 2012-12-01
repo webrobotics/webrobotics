@@ -1,0 +1,38 @@
+<div class="navbar">
+    <div class="navbar-inner">
+        <div class="container">
+            <div class="nav-collapse">
+                <ul class="nav" id="MainTabs">
+                    <li class="active">
+                        <a data-target="#list" id="listTab" data-toggle="tab" href="<?php echo $this->baseUrl; ?>/list">Function list</a>
+                    </li>
+                    <li>
+                        <a data-target="#banana" data-toggle="tab" href="/banana.html">banana</a>
+                    </li>
+                    <li>
+                        <a data-target="#cherry" data-toggle="tab" href="/cherry.html">cherry</a>
+                    </li>
+                </ul>
+            </div><!-- /.nav-collapse -->
+        </div>
+    </div><!-- /navbar-inner -->
+
+    <div class="tab-content">
+        <div class="tab-pane" id="list">Loading...</div>
+        <div class="tab-pane" id="banana">Loading...</div>
+        <div class="tab-pane" id="cherry">Loading...</div>
+    </div>
+
+    <script>
+        $(function() {
+            $('#list').load($('#listTab').attr("href"));
+            $("#MainTabs").tab("show");
+            $("#MainTabs").bind("show", function(e) {
+                var contentID  = $(e.target).attr("data-target");
+                var contentURL = $(e.target).attr("href");
+                $(contentID).load(contentURL);
+            });
+            $('#MainTabs a:first').tab("show");
+        });
+    </script>
+</div>

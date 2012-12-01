@@ -1,0 +1,41 @@
+
+
+<div class="navbar" style="margin-bottom:5px;">
+    <div class="navbar-inner">
+        <div class="container">
+            <div class="nav-collapse">
+                <ul class="nav" id="MainTabs">
+                    <li class="active">
+                        <a data-target="#list" id="listTab" data-toggle="tab" href="<?php echo $this->controllerUrl; ?>/list">Item list</a>
+                    </li>
+                    <li>
+                        <a data-target="#coverage" data-toggle="tab" href="<?php echo $this->baseUrl; ?>/group"><b>Coverage</b></a>
+                    </li>
+                </ul>
+            </div><!-- /.nav-collapse -->
+        </div>
+    </div><!-- /navbar-inner -->
+
+    <div class="tab-content">
+        <div class="tab-pane" id="list">Loading...</div>
+        <div class="tab-pane" id="coverage" style="width:90%">Loading...</div>
+    </div>
+
+    <script>
+        $(function() {
+            $('#list').load($('#listTab').attr("href"));
+            $("#MainTabs").tab("show");
+            $('#MainTabs a:first').tab("show");
+            $("#MainTabs").bind("show", function(e) {
+                var contentID  = $(e.target).attr("data-target");
+                var contentURL = $(e.target).attr("href");
+                $(contentID).load(contentURL);
+            });
+        });
+    </script>
+
+
+
+</div>
+
+

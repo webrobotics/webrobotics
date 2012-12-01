@@ -1,0 +1,73 @@
+<form id="fileForm" action="<?php echo $this->controllerUrl; ?>/upload" method="post" enctype="multipart/form-data">
+    <div class="input-prepend">
+        <span id="fileItemId" class="add-on" style="text-shadow:none;width:100px;background-color:#5F7181;border-color:#5F7181;color:#fff">Item name: </span>
+        <select class="span3" style="width:400px;" name="fileItemId">
+            <?php echo $this->groupSelect;?>
+        </select>
+    </div>
+    <div class="input-prepend">
+        <span id="filePath" class="add-on" style="text-shadow:none;width:100px;background-color:#5F7181;border-color:#5F7181;color:#fff">Path: </span>
+        <span class="input-xlarge uneditable-input" style="width:150px">
+            <?php echo $this->storagePath;?>
+        </span>
+
+        <select name="filePath" style="width:250px;" class="span3">
+            <?php
+                foreach ($this->storageStructure as $path) {
+                    $pathFormated = preg_replace("/\//","&nbsp;/&nbsp;",$path);
+                    echo "<option value=".$path.">".$pathFormated."</option>";
+                }
+            ?>
+        </select>
+    </div>
+    <div class="input-prepend" id="fileInputBlock">
+        <span id="testFileContainer" title="Required field" class="add-on" style="text-shadow:none;width:100px;background-color:#5F7181;border-color:#5F7181;color:#fff">
+            Select file:
+        </span>
+        <input id="testFileInput" type="file" name="testFile" style="display:none">
+            <input id="testFileStub" class="input-large" disabled type="text">
+            <a class="btn" onclick="$('input[id=testFileInput]').click();">Browse</a>
+        <script type="text/javascript">
+            $('#testFileInput').change(function() {
+                $('#testFileStub').val($(this).val());
+            });
+        </script>
+
+    </div>
+    <br>
+    <div id="result"></div>
+
+    <button id="submitButton" type="submit" class="btn btn-primary">Upload file</button>
+    <button id="closeButton" type="button" class="btn btn-primary">Close</button></a>
+
+</form>
+
+
+<script>
+    (function() {
+            $('#fileForm').ajaxForm({
+                beforeSend: function() {
+                    $('#result').empty();
+                },
+                complete: function(xhr) {
+                    $('#result').html(xhr.responseText);
+                }
+            });
+
+    })();
+    $(document).ready(function() {
+
+        $("#submitButton").on("click",function(event) {
+            if(!$('[name=testFile]').val()) {
+                $('#result').append('<div class="alert alert-error"><strong>File</strong> is required</div>');
+                return false;
+            }
+        }
+        );
+        $("#closeButton").on("click",function(event) {
+                    $('#list').load($('#listTab').attr("href"));
+                }
+        );
+    });
+</script>
+
